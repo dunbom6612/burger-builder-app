@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import Aux from "../../hoc/Aux";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/BuildControls/BuildControls";
-import Modal from '../../components/UI/Modal/Modal';
-import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 
 const INGREDIENT_PRICES = {
   salad: 0.5,
@@ -23,13 +21,15 @@ class BurgerBuilder extends Component {
     purchasable: false
   };
 
-  updatePurchaseState(ingredients) {
+  updatePurchaseState() {
+    const ingredients = {
+      ...this.state.ingredients
+    };
     const sum = Object.keys(ingredients).map(igKey => {
       return ingredients[igKey]
-    }).reduce((sum,el) => {
-      return sum + el
-    },0);
-    this.setState({purchasable: sum > 0 });
+    }).reduce((sum,ele) => {
+      return sum+ ele
+    },0)
   }
 
   addIngredientHandler = (type) => {
@@ -43,7 +43,6 @@ class BurgerBuilder extends Component {
     const oldPrice = this.state.totalPrice;
     const newPrice = oldPrice + priceAddition;
     this.setState({ totalPrice: newPrice, ingredients: updateIngredients });
-    this.updatePurchaseState(updateIngredients);
   };
 
   removeIngredientHandler = (type) => {
@@ -61,7 +60,6 @@ class BurgerBuilder extends Component {
     const newPrice =
       oldPrice > priceDeduction ? oldPrice - priceDeduction : oldPrice;
     this.setState({ totalPrice: newPrice, ingredients: updateIngredients });
-    this.updatePurchaseState(updateIngredients);
   };
   render() {
       const disabledInfo = {
@@ -72,15 +70,11 @@ class BurgerBuilder extends Component {
       }
     return (
       <Aux>
-        <Modal >
-          <OrderSummary ingredients={this.state.ingredients} />
-        </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           ingredientAdded={this.addIngredientHandler}
           ingredientRemoved={this.removeIngredientHandler}
           price={this.state.totalPrice}
-          purchasable={this.state.purchasable}
           disabled={disabledInfo}
         />
       </Aux>
