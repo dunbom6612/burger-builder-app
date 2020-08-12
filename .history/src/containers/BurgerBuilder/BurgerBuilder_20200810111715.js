@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Aux from "../../hoc/_Aux";
+import Aux from "../../hoc/Aux";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/BuildControls/BuildControls";
 import Modal from '../../components/UI/Modal/Modal';
@@ -77,7 +77,6 @@ class BurgerBuilder extends Component {
 
   purchaseContinueHandler = () => {
     alert('You continue!');
-    this.props.history.push('/checkout');
   }
 
   render() {
@@ -104,6 +103,7 @@ class BurgerBuilder extends Component {
           ordered={this.purchaseHandler}
           purchasable={this.state.purchasable}
           disabled={disabledInfo}
+
         />
       </Aux>
     );
