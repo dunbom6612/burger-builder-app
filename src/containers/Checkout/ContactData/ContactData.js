@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import classes from "./ContactData.css";
 import Button from "../../../components/UI/Button/Button";
 import Spinner from "../../../components/UI/Spinner/Spinner";
+import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
+import axios from "../../../axios-orders";
+import Input from "../../../components/UI/Input/Input";
+
 class ContatctData extends Component {
   state = {
     name: "",
@@ -17,8 +21,8 @@ class ContatctData extends Component {
     event.preventDefault();
     this.setState({ loading: true });
     const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.price,
+      ingredients: this.props.ingredients,
+      price: this.props.price,
       customer: {
         name: "Hweee",
         email: "huypq23@...",
@@ -31,7 +35,7 @@ class ContatctData extends Component {
     };
 
     axios
-      .post("/orders.json", orders)
+      .post("/orders.json", order)
       .then((response) => {
         this.setState({ loading: false });
         this.props.history.push("/");
@@ -44,26 +48,22 @@ class ContatctData extends Component {
   render() {
     let form = (
       <form>
-        <input
-          className={classes.Input}
+        <Input inputType="input" 
           type="text"
           name="name"
           placeholder="Your Name"
         />
-        <input
-          className={classes.Input}
+        <Input inputType="input"
           type="email"
           name="email"
           placeholder="Your Mail"
         />
-        <input
-          className={classes.Input}
+        <Input inputType="input"
           type="text"
           name="street"
           placeholder="Street"
         />
-        <input
-          className={classes.Input}
+        <Input inputType="input"
           type="text"
           name="postal"
           placeholder="Postal Code"
@@ -85,4 +85,4 @@ class ContatctData extends Component {
   }
 }
 
-export default ContatctData;
+export default withErrorHandler(ContatctData, axios);

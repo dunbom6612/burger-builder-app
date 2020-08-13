@@ -4,8 +4,6 @@ import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
-import axios from "../../axios-orders";
-import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import Spinner from "../../components/UI/Spinner/Spinner";
 
 const INGREDIENT_PRICES = {
@@ -25,7 +23,7 @@ class BurgerBuilder extends Component {
     totalPrice: 4,
     purchasable: false,
     purchasing: false,
-    loading: true,
+    loading: false,
   };
 
   updatePurchaseState(ingredients) {
@@ -97,7 +95,6 @@ class BurgerBuilder extends Component {
       pathname: "/checkout",
       search: "?"+ queryString
     });
-    this.props.history.push("/checkout");
   };
 
   render() {
