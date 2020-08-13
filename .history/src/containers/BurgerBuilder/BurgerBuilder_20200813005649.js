@@ -83,20 +83,11 @@ class BurgerBuilder extends Component {
 
   purchaseContinueHandler = () => {
     alert("You continue!");
-    const queryParams = [];
-    for (let i in this.state.ingredients) {
-      queryParams.push(
-        encodeURIComponent(i) +
-          "=" +
-          encodeURIComponent(this.state.ingredients[i])
-      );
-    }
-    queryParams.push('price=' + this.state.totalPrice);
-    const queryString = queryParams.join('&');
-    this.props.history.push({
-      pathname: "/checkout",
-      search: "?"+ queryString
-    });
+    const orders = {};
+    axios
+      .post("/orders.json", orders)
+      .then((response) => this.setState({ loading: false}))
+      .catch((error) => this.setState({ loading: false}));
     this.props.history.push("/checkout");
   };
 
@@ -107,7 +98,6 @@ class BurgerBuilder extends Component {
     for (let key in disabledInfo) {
       disabledInfo[key] = disabledInfo[key] <= 0;
     }
-
     let orderSummary = (
       <OrderSummary
         ingredients={this.state.ingredients}

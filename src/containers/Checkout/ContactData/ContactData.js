@@ -29,16 +29,16 @@ class ContatctData extends Component {
       },
       deliveryMethod: "fastest",
     };
-    setTimeout(()=>{
 
-        alert("Order is submited");
-        this.setState({
-            loading: false
-        });
-        console.log('props', this.props);
-        this.props.history.push('/');
-    },500);
-  
+    axios
+      .post("/orders.json", orders)
+      .then((response) => {
+        this.setState({ loading: false });
+        this.props.history.push("/");
+      })
+      .catch((error) => {
+        this.props.history.push("/");
+      });
   };
 
   render() {
