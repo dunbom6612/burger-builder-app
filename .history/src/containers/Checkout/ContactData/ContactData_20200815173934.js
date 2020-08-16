@@ -5,8 +5,6 @@ import Spinner from "../../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 import axios from "../../../axios-orders";
 import Input from "../../../components/UI/Input/Input";
-import {connect} from 'react-redux';
-import * as actionTypes from '../../../store/actions' 
 
 class ContatctData extends Component {
   state = {
@@ -106,7 +104,7 @@ class ContatctData extends Component {
     }
 
     const order = {
-      ingredients: this.props.ings,
+      ingredients: this.props.ingredients,
       price: Number.parseFloat(this.props.price).toFixed(2),
       orderData: formData,
     };
@@ -123,7 +121,7 @@ class ContatctData extends Component {
 
   checkValidity = (value, rules) => {
     let isValid = true;
-    if (!rules) {
+    if (rules) {
       return true;
     }
     if (rules.required) {
@@ -137,8 +135,6 @@ class ContatctData extends Component {
     if (rules.maxLength) {
       isValid = value.length <= rules.maxLength && isValid;
     }
-
-    console.log('isValid', isValid);
     return isValid;
   };
 
@@ -207,19 +203,4 @@ class ContatctData extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    ings: state.ingredients,
-    price: state.totalPrice
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onOrder: (order) =>
-      dispatch({ type: actionTypes.ORDER, order: order })
-  };
-};
-
-
-export default connect(mapStateToProps,mapDispatchToProps)(withErrorHandler(ContatctData, axios));
+export default withErrorHandler(ContatctData, axios);

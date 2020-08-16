@@ -24,7 +24,7 @@ class Checkout extends Component {
         />
         <Route
           path={this.props.match.path + "/contact-data"}
-          component={ContactData}
+          component={ContactData}}
         />
       </div>
     );
@@ -36,7 +36,6 @@ const mapStateToProps = (state) => {
     ings: state.ingredients
   };
 };
-
 
 
 export default connect(mapStateToProps)(Checkout);

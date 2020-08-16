@@ -123,7 +123,7 @@ class ContatctData extends Component {
 
   checkValidity = (value, rules) => {
     let isValid = true;
-    if (!rules) {
+    if (rules) {
       return true;
     }
     if (rules.required) {

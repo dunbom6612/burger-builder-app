@@ -18,25 +18,24 @@ class Checkout extends Component {
     return (
       <div>
         <CheckoutSummary
-          ingredients={this.props.ings}
+          ingredients={this.state.ingredients}
           cancelClick={this.cancelClickHandler}
           continueClick={this.continueClickHandler}
         />
         <Route
           path={this.props.match.path + "/contact-data"}
-          component={ContactData}
+          render={(props) => (
+            <ContactData
+              ingredients={this.state.ingredients}
+              price={this.state.price} 
+              {...props}
+
+            />
+          )}
         />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    ings: state.ingredients
-  };
-};
-
-
-
-export default connect(mapStateToProps)(Checkout);
+export default Checkout;

@@ -123,7 +123,7 @@ class ContatctData extends Component {
 
   checkValidity = (value, rules) => {
     let isValid = true;
-    if (!rules) {
+    if (rules) {
       return true;
     }
     if (rules.required) {
@@ -137,8 +137,6 @@ class ContatctData extends Component {
     if (rules.maxLength) {
       isValid = value.length <= rules.maxLength && isValid;
     }
-
-    console.log('isValid', isValid);
     return isValid;
   };
 
